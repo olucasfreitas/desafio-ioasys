@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../assets/first-background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  height: 15%;
+
+  h1,
+  p {
+    margin: 0;
+  }
+
+  .left-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: fit-content;
+    height: 100%;
+
+    h1:first-child {
+      margin-right: 15px;
+    }
+  }
+
+  .right-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    height: 100%;
+
+    p {
+      white-space: nowrap;
+    }
+
+    #logout-button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      padding: 5px;
+      margin-left: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(51, 51, 51, 0.2);
+    }
+  }
+}
+
+.books-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  width: 90%;
+  height: 75%;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.paginator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 87.5%;
+  height: 10%;
+
+  p {
+    margin: 0;
+  }
+}
+
+.paginator-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+  height: 10%;
+  p {
+    white-space: nowrap;
+    margin: 0;
+  }
+}
+
+.arrow-button,
+.arrow-button-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  margin-left: 20px;
+}
+
+.arrow-button-mobile {
+  margin: 0;
+}
+
+@media (max-width: 440px) {
+  .container {
+    overflow: auto;
+  }
+  .header {
+    .right-info {
+      p {
+        display: none;
+      }
+    }
+  }
+
+  .books-list {
+    width: 95%;
+    height: 100%;
+  }
+}

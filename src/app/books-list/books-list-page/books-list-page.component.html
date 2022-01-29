@@ -1,1 +1,35 @@
-<p>books-list-page works!</p>
+<div class="container">
+  <div class="header">
+    <div class="left-info">
+      <h1 id="title"><strong>ioasys</strong></h1>
+      <h1>Books</h1>
+    </div>
+    <div class="right-info">
+      <p>Bem vindo, <strong>Guilherme!</strong></p>
+      <span id="logout-button">
+        <mat-icon>logout</mat-icon>
+      </span>
+    </div>
+  </div>
+  <div class="books-list">
+    <app-book-card *ngFor="let book of books; index as bookIndex"></app-book-card>
+  </div>
+  <div class="paginator" *ngIf="!isMobile">
+    <p><strong>Página 1 de 100</strong></p>
+    <span class="arrow-button">
+      <mat-icon>chevron_left</mat-icon>
+    </span>
+    <span class="arrow-button">
+      <mat-icon>chevron_right</mat-icon>
+    </span>
+  </div>
+  <div class="paginator-mobile" *ngIf="isMobile">
+    <span class="arrow-button-mobile">
+      <mat-icon>chevron_left</mat-icon>
+    </span>
+    <p><strong>Página 1 de 100</strong></p>
+    <span class="arrow-button-mobile">
+      <mat-icon>chevron_right</mat-icon>
+    </span>
+  </div>
+</div>
