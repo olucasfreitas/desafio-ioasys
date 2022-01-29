@@ -1,1 +1,21 @@
-<p>form works!</p>
+<div class="container">
+  <h1 id="title"><strong>ioasys</strong> Books</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="input-container">
+      <p>Email</p>
+      <input type="email" matInput formControlName="email" placeholder="johndoe@example.com" />
+    </div>
+
+    <div class="input-container">
+      <p>Senha</p>
+      <input type="password" matInput formControlName="password" placeholder="***********" />
+    </div>
+
+    <mat-error *ngIf="loginForm.hasError('email') && !loginForm.hasError('required')">
+      Por favor insira um endereço de e-mail válido
+    </mat-error>
+    <mat-error *ngIf="loginForm.hasError('required')"> Email é <strong>obrigatório</strong> </mat-error>
+
+    <button id="submit-button" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+  </form>
+</div>
