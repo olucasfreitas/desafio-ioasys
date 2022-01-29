@@ -1,1 +1,60 @@
-<p>book-details-modal works!</p>
+<div mat-dialog-content class="container">
+  <div class="img">
+    <img [src]="book.imageUrl" alt="book cover" />
+  </div>
+  <div class="info">
+    <div class="top-info">
+      <h1>
+        <strong>{{ book.title }}</strong>
+      </h1>
+      <p>{{ book.authors }}</p>
+    </div>
+    <strong>INFORMAÇÕES</strong>
+    <div class="middle-info">
+      <div class="separated-info">
+        <strong>Páginas</strong>
+        {{ book.pageCount }}
+      </div>
+      <div class="separated-info">
+        <strong>Editora</strong>
+        {{ book.publisher }}
+      </div>
+      <div class="separated-info">
+        <strong>Publicação</strong>
+        {{ book.published }}
+      </div>
+      <div class="separated-info">
+        <strong>Idioma</strong>
+        {{ book.language }}
+      </div>
+      <div class="separated-info">
+        <strong>Titulo original</strong>
+        {{ book.title }}
+      </div>
+      <div class="separated-info">
+        <strong>ISBN-10</strong>
+        {{ book.isbn10 }}
+      </div>
+      <div class="separated-info">
+        <strong>ISBN-13</strong>
+        {{ book.isbn13 }}
+      </div>
+    </div>
+
+    <div class="bottom-info">
+      <strong>RESENHA DA EDITORA</strong>
+
+      <p>
+        <mat-icon>format_quote</mat-icon>
+        Resenha da editora The subject of “design thinking” is the rage at business schools, throughout corporations,
+        and increasingly in the popular press—due in large part to the work of IDEO, a leading design firm, and its
+        celebrated CEO, Tim Brown, who uses this book to show how the techniques and strategies of design belong at
+        every level of business.
+      </p>
+    </div>
+  </div>
+</div>
+
+<button mat-icon-button class="close-button" (click)="close()">
+  <mat-icon>close</mat-icon>
+</button>

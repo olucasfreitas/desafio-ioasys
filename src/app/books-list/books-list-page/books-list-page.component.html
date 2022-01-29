@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="books-list">
-    <app-book-card *ngFor="let book of books; index as bookIndex"></app-book-card>
+    <app-book-card [book]="book" *ngFor="let book of books; index as bookIndex"></app-book-card>
   </div>
   <div class="paginator" *ngIf="!isMobile">
     <p><strong>Página 1 de 100</strong></p>

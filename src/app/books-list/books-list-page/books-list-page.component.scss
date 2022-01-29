@@ -18,6 +18,8 @@
   align-items: center;
   justify-content: space-between;
   width: 85%;
+  max-width: 1920px;
+  max-height: 1080px;
   height: 15%;
 
   h1,
@@ -34,6 +36,7 @@
     height: 100%;
 
     h1:first-child {
+      font-size: 2.5em;
       margin-right: 15px;
     }
   }
@@ -47,6 +50,7 @@
     height: 100%;
 
     p {
+      font-size: 1.5em;
       white-space: nowrap;
     }
 
@@ -55,8 +59,8 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       padding: 5px;
       margin-left: 20px;
       border-radius: 50%;
@@ -72,7 +76,7 @@
   justify-content: center;
   flex-wrap: wrap;
   overflow-y: scroll;
-  width: 90%;
+  width: 85%;
   height: 75%;
   &::-webkit-scrollbar {
     display: none;
@@ -88,6 +92,7 @@
   height: 10%;
 
   p {
+    font-size: 1.5em;
     margin: 0;
   }
 }
@@ -111,12 +116,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   padding: 5px;
   border-radius: 50%;
   border: 1px solid rgba(51, 51, 51, 0.2);
   margin-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .arrow-button-mobile {

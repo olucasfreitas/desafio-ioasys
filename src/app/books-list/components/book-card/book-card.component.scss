@@ -3,11 +3,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 210px;
-  height: 110px;
+  width: 366px;
+  height: 210px;
   margin: 5px;
   box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
   border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   #book-info {
     display: flex;
@@ -28,12 +32,12 @@
         margin: 0;
         font-style: normal;
         font-weight: 500;
-        font-size: 1em;
+        font-size: 1.25em;
         line-height: 1.5em;
         color: #ab2680;
 
         &:first-child {
-          font-size: 1em;
+          font-size: 1.5em;
           color: #333333;
         }
       }
@@ -49,7 +53,7 @@
         margin: 0;
         font-style: normal;
         font-weight: normal;
-        font-size: 0.75em;
+        font-size: 1em;
         line-height: 1.5em;
         color: #999999;
       }
@@ -57,8 +61,8 @@
   }
 
   #book-cover {
-    width: 60px;
-    height: 100px;
+    width: 150px;
+    height: 200px;
     margin-right: 15px;
     filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.15));
   }
