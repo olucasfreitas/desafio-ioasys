@@ -9,6 +9,8 @@ import { BookCardComponent } from './books-list/components/book-card/book-card.c
 import { BookDetailsModalComponent } from './books-list/components/book-details-modal/book-details-modal.component';
 import { BooksListPageComponent } from './books-list/books-list-page/books-list-page.component';
 import { LoginPageComponent } from './login/login-page/login-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -17,14 +19,10 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
     BookCardComponent,
     BookDetailsModalComponent,
     BooksListPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule, MatInputModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
