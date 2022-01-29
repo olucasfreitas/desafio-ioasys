@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiBaseUrl: 'https://books.ioasys.com.br/api/v1',
   production: false
 };
 
