@@ -1,1 +1,16 @@
-<p>book-card works!</p>
+<mat-card id="container">
+  <img [src]="book.imageUrl" alt="" id="book-cover" />
+  <div id="book-info">
+    <div id="top-info">
+      <p>
+        <strong>{{ book.title }}</strong>
+      </p>
+      <p>{{ book.authors }}</p>
+    </div>
+    <div id="bottom-info">
+      <p>{{ book.pageCount }} páginas</p>
+      <p>{{ book.publisher }}</p>
+      <p>Publicado em {{ book.published }}</p>
+    </div>
+  </div>
+</mat-card>
