@@ -10,12 +10,10 @@
       <p>Senha</p>
       <input type="password" matInput formControlName="password" placeholder="***********" />
     </div>
+    <button id="submit-button" type="submit">Entrar</button>
 
-    <mat-error *ngIf="loginForm.hasError('email') && !loginForm.hasError('required')">
-      Por favor insira um endereço de e-mail válido
-    </mat-error>
-    <mat-error *ngIf="loginForm.hasError('required')"> Email é <strong>obrigatório</strong> </mat-error>
-
-    <button id="submit-button" type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    <div class="tip" *ngIf="incorrectInfo">
+      <p>Email e/ou senha incorretos</p>
+    </div>
   </form>
 </div>
