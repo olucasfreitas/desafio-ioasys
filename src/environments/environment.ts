@@ -4,7 +4,7 @@
 
 export const environment = {
   apiBaseUrl: 'https://books.ioasys.com.br/api/v1',
-  production: false
+  production: false,
 };
 
 /*
