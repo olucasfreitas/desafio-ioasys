@@ -11,6 +11,7 @@ export class FormComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
+  incorrectInfo = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
