@@ -154,13 +154,13 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .container {
     flex-direction: column;
     .img {
       min-width: 100%;
       min-height: 400px;
-      margin-bottom: 120px;
+      margin-bottom: 100px;
       img {
         width: 200px;
         height: 350px;
