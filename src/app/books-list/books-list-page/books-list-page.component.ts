@@ -1,5 +1,5 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/login/entities/user.entity';
 import { UserService } from 'src/app/login/services/user.service';
 import { Book } from '../entities/book.entity';
@@ -10,7 +10,7 @@ import { BooksService } from '../services/books.service';
   templateUrl: './books-list-page.component.html',
   styleUrls: ['./books-list-page.component.scss'],
 })
-export class BooksListPageComponent implements OnInit, OnDestroy {
+export class BooksListPageComponent implements OnInit {
   bookList: Book[] = [];
 
   page = 1;
@@ -19,63 +19,33 @@ export class BooksListPageComponent implements OnInit, OnDestroy {
   category = 'biographies';
 
   user = new User();
-  authToken = '';
 
   isMobile = false;
-  isLoading = false;
-  subscriptions: Subscription[] = [];
 
-  constructor(private userService: UserService, private booksService: BooksService) {}
+  constructor(private userService: UserService, private router: Router, private booksService: BooksService) {}
 
   ngOnInit(): void {
-    this.setSubscriptions();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((value) => {
-      value.unsubscribe();
-    });
-  }
-
-  setSubscriptions(): void {
-    this.subscriptions.push(
-      this.getUserSubscription(),
-      this.getAuthorizationSubscription(),
-      this.getBooksSubscription(),
-    );
-  }
-
-  getUserSubscription(): Subscription {
-    return this.userService.getCurrentUser().subscribe((value) => {
+    this.userService.getCurrentUser().subscribe((value) => {
       this.user = value;
     });
-  }
-
-  getAuthorizationSubscription(): Subscription {
-    return this.userService.getAuthorizationToken().subscribe((value) => {
-      this.authToken = value;
-    });
-  }
-
-  getBooksSubscription(): Subscription {
-    this.isLoading = true;
-    return this.booksService.getBooks(this.page, this.amount, this.category, this.authToken).subscribe((books) => {
-      this.bookList = books.data;
-      this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
-      this.isLoading = false;
-    });
+    this.booksService
+      .getBooks(this.page, this.amount, this.category, this.user.authorizationToken)
+      .subscribe((books) => {
+        this.bookList = books.data;
+        this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
+      });
   }
 
   goToNextPage(): void {
     if (this.page + 1 > this.lastPage) {
       return;
     } else {
-      this.isLoading = true;
-      this.booksService.getBooks(this.page + 1, this.amount, this.category, this.authToken).subscribe((books) => {
-        this.bookList = books.data;
-        this.page = books.page;
-        this.isLoading = false;
-      });
+      this.booksService
+        .getBooks(this.page + 1, this.amount, this.category, this.user.authorizationToken)
+        .subscribe((books) => {
+          this.bookList = books.data;
+          this.page = books.page;
+        });
     }
   }
 
@@ -83,12 +53,12 @@ export class BooksListPageComponent implements OnInit, OnDestroy {
     if (this.page - 1 == 0) {
       return;
     } else {
-      this.isLoading = true;
-      this.booksService.getBooks(this.page - 1, this.amount, this.category, this.authToken).subscribe((books) => {
-        this.bookList = books.data;
-        this.page = books.page;
-        this.isLoading = false;
-      });
+      this.booksService
+        .getBooks(this.page - 1, this.amount, this.category, this.user.authorizationToken)
+        .subscribe((books) => {
+          this.bookList = books.data;
+          this.page = books.page;
+        });
     }
   }
 
@@ -105,5 +75,6 @@ export class BooksListPageComponent implements OnInit, OnDestroy {
 
   signOut(): void {
     this.userService.signOut();
+    this.router.navigate(['/login']);
   }
 }
