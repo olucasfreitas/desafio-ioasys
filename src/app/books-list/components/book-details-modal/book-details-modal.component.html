@@ -1,57 +1,59 @@
-<div mat-dialog-content class="container">
-  <div class="img">
-    <img [src]="book.imageUrl" alt="book cover" />
-  </div>
-  <div class="info">
-    <div class="top-info">
-      <h1>
-        <strong>{{ book.title }}</strong>
-      </h1>
-      <p>{{ book.authors }}</p>
+<div mat-dialog-content>
+  <div class="container">
+    <div class="img">
+      <img [src]="book.imageUrl" alt="book cover" />
     </div>
+    <div class="info">
+      <div class="top-info">
+        <h1>
+          <strong>{{ book.title }}</strong>
+        </h1>
+        <p>{{ book.authors }}</p>
+      </div>
 
-    <div class="middle-info">
-      <p><strong>INFORMAÇÕES</strong></p>
-      <div class="separated-info">
-        <p><strong>Páginas</strong></p>
-        <p>{{ book.pageCount }}</p>
+      <div class="middle-info">
+        <p><strong>INFORMAÇÕES</strong></p>
+        <div class="separated-info">
+          <p><strong>Páginas</strong></p>
+          <p>{{ book.pageCount }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>Editora</strong></p>
+          <p>{{ book.publisher }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>Publicação</strong></p>
+          <p>{{ book.published }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>Idioma</strong></p>
+          <p>{{ book.language }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>Titulo original</strong></p>
+          <p>{{ book.title }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>ISBN-10</strong></p>
+          <p>{{ book.isbn10 }}</p>
+        </div>
+        <div class="separated-info">
+          <p><strong>ISBN-13</strong></p>
+          <p>{{ book.isbn13 }}</p>
+        </div>
       </div>
-      <div class="separated-info">
-        <p><strong>Editora</strong></p>
-        <p>{{ book.publisher }}</p>
-      </div>
-      <div class="separated-info">
-        <p><strong>Publicação</strong></p>
-        <p>{{ book.published }}</p>
-      </div>
-      <div class="separated-info">
-        <p><strong>Idioma</strong></p>
-        <p>{{ book.language }}</p>
-      </div>
-      <div class="separated-info">
-        <p><strong>Titulo original</strong></p>
-        <p>{{ book.title }}</p>
-      </div>
-      <div class="separated-info">
-        <p><strong>ISBN-10</strong></p>
-        <p>{{ book.isbn10 }}</p>
-      </div>
-      <div class="separated-info">
-        <p><strong>ISBN-13</strong></p>
-        <p>{{ book.isbn13 }}</p>
-      </div>
-    </div>
 
-    <div class="bottom-info">
-      <p><strong>RESENHA DA EDITORA</strong></p>
+      <div class="bottom-info">
+        <p><strong>RESENHA DA EDITORA</strong></p>
 
-      <p id="abstract">
-        <mat-icon>format_quote</mat-icon>
-        Resenha da editora The subject of “design thinking” is the rage at business schools, throughout corporations,
-        and increasingly in the popular press—due in large part to the work of IDEO, a leading design firm, and its
-        celebrated CEO, Tim Brown, who uses this book to show how the techniques and strategies of design belong at
-        every level of business.
-      </p>
+        <p id="abstract">
+          <mat-icon>format_quote</mat-icon>
+          Resenha da editora The subject of “design thinking” is the rage at business schools, throughout corporations,
+          and increasingly in the popular press—due in large part to the work of IDEO, a leading design firm, and its
+          celebrated CEO, Tim Brown, who uses this book to show how the techniques and strategies of design belong at
+          every level of business.
+        </p>
+      </div>
     </div>
   </div>
 </div>
