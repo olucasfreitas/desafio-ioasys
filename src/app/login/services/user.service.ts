@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../entities/user.entity';
 
@@ -10,83 +9,39 @@ import { User } from '../entities/user.entity';
 })
 export class UserService {
   url = `${environment.apiBaseUrl}/auth`;
-  authorizationToken = '';
-  private authorizationTokenSubject = new BehaviorSubject<string>(this.authorizationToken);
-  refreshToken = '';
-  private refreshTokenSubject = new BehaviorSubject<string>(this.refreshToken);
-  private currentUser = new BehaviorSubject<User>(new User());
+  private currentUser = new User();
+  private currentUserSubject = new BehaviorSubject<User>(new User());
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   setCurrentUser(value: User): void {
-    return this.currentUser.next(value);
+    this.currentUser = value;
+    this.currentUserSubject.next(value);
   }
 
   getCurrentUser(): Observable<User> {
-    return this.currentUser.asObservable();
+    return this.currentUserSubject.asObservable();
   }
 
-  setAuthorizationToken(value: string): void {
-    this.authorizationToken = value;
-    return this.authorizationTokenSubject.next(value);
-  }
-
-  getAuthorizationToken(): Observable<string> {
-    return this.authorizationTokenSubject.asObservable();
-  }
-
-  setRefreshToken(value: string): void {
-    this.refreshToken = value;
-    return this.refreshTokenSubject.next(value);
-  }
-
-  getRefreshToken(): Observable<string> {
-    return this.refreshTokenSubject.asObservable();
-  }
-
-  signIn(email: string, password: string): Observable<User> {
+  signIn(email: string, password: string): Observable<any> {
     const user = { email, password };
 
-    return this.http
-      .post(`${this.url}/sign-in`, user, {
-        headers: new HttpHeaders({
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          authorization: this.authorizationToken,
-        }),
-        observe: 'response',
-      })
-      .pipe(
-        map((res) => {
-          const authToken = JSON.stringify(res.headers.get('Authorization'));
-          const refreshToken = JSON.stringify(res.headers.get('refresh-token'));
-
-          localStorage.setItem('authToken', authToken);
-          localStorage.setItem('refreshToken', refreshToken);
-          localStorage.setItem('currentUser', JSON.stringify(res.body));
-
-          this.currentUser.next(res.body as User);
-          this.authorizationTokenSubject.next(authToken);
-          this.refreshTokenSubject.next(refreshToken);
-
-          this.router.navigate(['/books-list']);
-
-          return res.body as User;
-        }),
-      );
+    return this.http.post(`${this.url}/sign-in`, user, {
+      observe: 'response',
+    });
   }
 
   signOut() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('authToken');
-    this.currentUser.next(new User());
-    this.router.navigate(['/login']);
+    localStorage.removeItem('authorization');
+    localStorage.removeItem('refresh-token');
+    this.currentUserSubject.next(new User());
   }
 
   authorizeRefreshToken(token: string): Observable<void> {
     const httpOptions = {
       headers: new HttpHeaders({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        Authorization: this.authorizationToken,
+        authorization: `Bearer ${this.currentUser.authorizationToken}`,
       }),
     };
     return this.http.post<void>(`${this.url}/refresh-token`, token, httpOptions);
