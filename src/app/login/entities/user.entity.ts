@@ -4,4 +4,6 @@ export class User {
   email = '';
   birthDate = '';
   gender = '';
+  authorizationToken = '';
+  refreshToken = '';
 }
