@@ -26,7 +26,11 @@ export class BooksService {
     });
   }
 
-  getSpecificBook(id: string): Observable<Book> {
-    return this.http.get<Book>(`${this.url}/${id}`);
+  getSpecificBook(id: string, authToken: string): Observable<Book> {
+    return this.http.get<Book>(`${this.url}/${id}`, {
+      headers: new HttpHeaders({
+        authorization: `Bearer ${authToken}`,
+      }),
+    });
   }
 }
