@@ -19,3 +19,8 @@ export class BooksResponse {
   totalItems = 0;
   totalPages = 0;
 }
+
+export class ModalBookInfo {
+  bookId = '';
+  authToken = '';
+}
