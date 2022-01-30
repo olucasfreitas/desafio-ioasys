@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-form',
@@ -13,12 +14,12 @@ export class FormComponent implements OnInit {
   });
   incorrectInfo = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.loginForm.value);
+    const { email, password } = this.loginForm.value;
+    this.userService.signIn(email, password);
   }
 }
