@@ -21,8 +21,7 @@ export class BooksService {
     return this.http.get<BooksResponse>(this.url, {
       params,
       headers: new HttpHeaders({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        Authorization: `Bearer ${authToken}`,
+        authorization: `Bearer ${authToken}`,
       }),
     });
   }
