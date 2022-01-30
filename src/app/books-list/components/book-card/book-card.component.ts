@@ -10,6 +10,7 @@ import { BookDetailsModalComponent } from '../book-details-modal/book-details-mo
 })
 export class BookCardComponent implements OnInit {
   @Input() book: Book = new Book();
+  @Input() authToken = '';
 
   constructor(public dialog: MatDialog) {}
 
@@ -21,7 +22,10 @@ export class BookCardComponent implements OnInit {
       width: '70%',
       disableClose: true,
       panelClass: 'my-outlined-dialog',
-      data: this.book,
+      data: {
+        bookId: this.book.id,
+        authToken: this.authToken,
+      },
     });
   }
 }

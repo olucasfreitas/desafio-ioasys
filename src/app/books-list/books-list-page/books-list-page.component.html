@@ -14,7 +14,11 @@
     </div>
   </div>
   <div class="books-list">
-    <app-book-card [book]="book" *ngFor="let book of bookList; index as bookIndex"></app-book-card>
+    <app-book-card
+      [authToken]="user.authorizationToken"
+      [book]="book"
+      *ngFor="let book of bookList; index as bookIndex"
+    ></app-book-card>
     <div class="paginator" *ngIf="!isMobile">
       <strong>Página {{ page }} de {{ lastPage }}</strong>
       <button mat-icon-button class="arrow-button" (click)="goToPreviousPage()">
