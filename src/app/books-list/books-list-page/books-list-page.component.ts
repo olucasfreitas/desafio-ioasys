@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/login/entities/user.entity';
 import { UserService } from 'src/app/login/services/user.service';
@@ -22,6 +22,9 @@ export class BooksListPageComponent implements OnInit {
 
   isMobile = false;
 
+  @ViewChild('scroll', { read: ElementRef })
+  public scroll!: ElementRef;
+
   constructor(private userService: UserService, private router: Router, private booksService: BooksService) {}
 
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class BooksListPageComponent implements OnInit {
     if (this.page + 1 > this.lastPage) {
       return;
     } else {
+      this.scrollTop();
       this.booksService
         .getBooks(this.page + 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
@@ -53,6 +57,7 @@ export class BooksListPageComponent implements OnInit {
     if (this.page - 1 == 0) {
       return;
     } else {
+      this.scrollTop();
       this.booksService
         .getBooks(this.page - 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
@@ -76,5 +81,14 @@ export class BooksListPageComponent implements OnInit {
   signOut(): void {
     this.userService.signOut();
     this.router.navigate(['/login']);
+  }
+
+  scrollTop(): void {
+    setTimeout(() => {
+      this.scroll.nativeElement.scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 100);
   }
 }
