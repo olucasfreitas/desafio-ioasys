@@ -8,23 +8,21 @@ import { UserService } from './login/services/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  title = 'desafio-ioasy';
   user = new User();
-  authToken = '';
-  refreshToken = '';
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     const localUser = localStorage.getItem('currentUser');
+    const authToken = localStorage.getItem('authorization');
+    const refreshToken = localStorage.getItem('refresh-token');
+
     if (localUser) {
       this.user = JSON.parse(localUser);
+      this.user.authorizationToken = authToken as string;
+      this.user.refreshToken = refreshToken as string;
       this.userService.setCurrentUser(this.user);
-    }
-
-    const localAuthToken = localStorage.getItem('authToken');
-    if (localAuthToken) {
-      this.authToken = JSON.parse(localAuthToken);
-      this.userService.setAuthorizationToken(this.authToken);
     }
   }
 }
