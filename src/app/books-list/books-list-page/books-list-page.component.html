@@ -5,31 +5,33 @@
       <h1>Books</h1>
     </div>
     <div class="right-info">
-      <p>Bem vindo, <strong>Guilherme!</strong></p>
-      <span id="logout-button">
+      <p>
+        Bem vindo, <strong>{{ user.name }}!</strong>
+      </p>
+      <span id="logout-button" (click)="signOut()">
         <mat-icon>logout</mat-icon>
       </span>
     </div>
   </div>
   <div class="books-list">
-    <app-book-card [book]="book" *ngFor="let book of books; index as bookIndex"></app-book-card>
-  </div>
-  <div class="paginator" *ngIf="!isMobile">
-    <p><strong>Página 1 de 100</strong></p>
-    <span class="arrow-button">
-      <mat-icon>chevron_left</mat-icon>
-    </span>
-    <span class="arrow-button">
-      <mat-icon>chevron_right</mat-icon>
-    </span>
-  </div>
-  <div class="paginator-mobile" *ngIf="isMobile">
-    <span class="arrow-button-mobile">
-      <mat-icon>chevron_left</mat-icon>
-    </span>
-    <p><strong>Página 1 de 100</strong></p>
-    <span class="arrow-button-mobile">
-      <mat-icon>chevron_right</mat-icon>
-    </span>
+    <app-book-card [book]="book" *ngFor="let book of bookList; index as bookIndex"></app-book-card>
+    <div class="paginator" *ngIf="!isMobile">
+      <strong>Página {{ page }} de {{ lastPage }}</strong>
+      <button mat-icon-button class="arrow-button" (click)="goToPreviousPage()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-icon-button class="arrow-button" (click)="goToNextPage()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="paginator-mobile" *ngIf="isMobile">
+      <button mat-icon-button class="arrow-button-mobile" (click)="goToPreviousPage()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <strong>Página {{ page }} de {{ lastPage }}</strong>
+      <button mat-icon-button class="arrow-button-mobile" (click)="goToNextPage()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
