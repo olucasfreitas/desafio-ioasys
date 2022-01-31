@@ -43,12 +43,12 @@ export class BooksListPageComponent implements OnInit {
     if (this.page + 1 > this.lastPage) {
       return;
     } else {
-      this.scrollTop();
       this.booksService
         .getBooks(this.page + 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
           this.bookList = books.data;
           this.page = books.page;
+          this.scrollTop();
         });
     }
   }
@@ -57,12 +57,12 @@ export class BooksListPageComponent implements OnInit {
     if (this.page - 1 == 0) {
       return;
     } else {
-      this.scrollTop();
       this.booksService
         .getBooks(this.page - 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
           this.bookList = books.data;
           this.page = books.page;
+          this.scrollTop();
         });
     }
   }
