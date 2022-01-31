@@ -37,9 +37,9 @@ export class FormComponent {
 
         this.userService.setCurrentUser(user);
 
-        localStorage.setItem('currentUser', JSON.stringify(data.body));
-        localStorage.setItem('authorization', authToken);
-        localStorage.setItem('refresh-token', refreshToken);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('authorization', user.authorizationToken);
+        localStorage.setItem('refresh-token', user.refreshToken);
         this.router.navigate(['/books-list']);
       },
       error: (err: HttpErrorResponse) => {
