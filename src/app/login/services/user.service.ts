@@ -9,8 +9,8 @@ import { User } from '../entities/user.entity';
 })
 export class UserService {
   url = `${environment.apiBaseUrl}/auth`;
-  private currentUser = new User();
-  private currentUserSubject = new BehaviorSubject<User>(new User());
+  public currentUser = new User();
+  public currentUserSubject = new BehaviorSubject<User>(new User());
 
   constructor(private http: HttpClient) {}
 
@@ -32,9 +32,7 @@ export class UserService {
   }
 
   signOut(): void {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('authorization');
-    localStorage.removeItem('refresh-token');
+    localStorage.clear();
     this.currentUserSubject.next(new User());
   }
 
