@@ -43,7 +43,7 @@ export class FormComponent {
         this.router.navigate(['/books-list']);
       },
       error: (err: HttpErrorResponse) => {
-        if (err.status == 401) {
+        if (err) {
           this.incorrectInfo = true;
         }
       },
