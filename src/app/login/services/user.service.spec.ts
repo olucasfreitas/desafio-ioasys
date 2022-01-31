@@ -61,4 +61,10 @@ describe('UserService', () => {
     expect(userService.currentUser).toEqual(new User());
     expect(userService.currentUserSubject.value).toEqual(new User());
   });
+
+  it('should return currentUser', () => {
+    userService.getCurrentUser().subscribe((user) => {
+      expect(user).toEqual(new User());
+    });
+  });
 });
