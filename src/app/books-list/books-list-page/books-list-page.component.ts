@@ -28,15 +28,20 @@ export class BooksListPageComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private booksService: BooksService) {}
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe((value) => {
-      this.user = value;
-    });
-    this.booksService
-      .getBooks(this.page, this.amount, this.category, this.user.authorizationToken)
-      .subscribe((books) => {
-        this.bookList = books.data;
-        this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
+    const localUser = localStorage.getItem('currentUser');
+    if (localUser) {
+      this.userService.getCurrentUser().subscribe((value) => {
+        this.user = value;
       });
+      this.booksService
+        .getBooks(this.page, this.amount, this.category, this.user.authorizationToken)
+        .subscribe((books) => {
+          this.bookList = books.data;
+          this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
+        });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   goToNextPage(): void {
