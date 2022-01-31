@@ -22,7 +22,7 @@ export class BookDetailsModalComponent implements OnInit {
     });
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 }

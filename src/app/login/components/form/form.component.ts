@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../entities/user.entity';
@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -19,11 +19,9 @@ export class FormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {}
 
-  ngOnInit(): void {}
-
-  onSubmit() {
+  onSubmit(): void {
     const { email, password } = this.loginForm.value;
-    const subscriber = this.userService.signIn(email, password).subscribe({
+    this.userService.signIn(email, password).subscribe({
       next: (data) => {
         const authToken = data.headers.get('authorization');
         const refreshToken = data.headers.get('refresh-token');
@@ -50,7 +48,5 @@ export class FormComponent implements OnInit {
         }
       },
     });
-
-    subscriber.unsubscribe();
   }
 }

@@ -31,7 +31,7 @@ export class UserService {
     });
   }
 
-  signOut() {
+  signOut(): void {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('authorization');
     localStorage.removeItem('refresh-token');

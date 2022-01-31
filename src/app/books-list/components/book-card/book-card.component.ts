@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Book } from '../../entities/book.entity';
 import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal.component';
@@ -8,15 +8,13 @@ import { BookDetailsModalComponent } from '../book-details-modal/book-details-mo
   templateUrl: './book-card.component.html',
   styleUrls: ['./book-card.component.scss'],
 })
-export class BookCardComponent implements OnInit {
+export class BookCardComponent {
   @Input() book: Book = new Book();
   @Input() authToken = '';
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
-
-  openModal() {
+  openModal(): void {
     this.dialog.open(BookDetailsModalComponent, {
       height: '75%',
       width: '70%',
