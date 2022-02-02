@@ -44,7 +44,7 @@ export class BooksListPageComponent implements OnInit {
   }
 
   goToNextPage(): void {
-    if (this.page + 1 < this.lastPage) {
+    if (this.page + 1 <= this.lastPage) {
       this.booksService
         .getBooks(this.page + 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
