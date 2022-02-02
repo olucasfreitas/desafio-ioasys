@@ -9,10 +9,13 @@ describe('UserService', () => {
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    const store: any = {};
+    let store: any = {};
 
     spyOn(localStorage, 'getItem').and.callFake((key: string): string => {
       return store[key] || null;
+    });
+    spyOn(localStorage, 'clear').and.callFake(() => {
+      store = {};
     });
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -51,6 +54,7 @@ describe('UserService', () => {
   it('should sign user out', () => {
     userService.signOut();
     expect(userService.currentUser).toEqual(new User());
+    expect(localStorage.clear()).toBeUndefined();
     expect(localStorage.getItem('currentUser')).toBeNull();
     expect(localStorage.getItem('authorization')).toBeNull();
     expect(localStorage.getItem('refresh-token')).toBeNull();
