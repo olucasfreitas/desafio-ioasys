@@ -3,19 +3,26 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { User } from '../entities/user.entity';
 import { LoginPageComponent } from './login-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { UserService } from '../services/user.service';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
   let router: jasmine.SpyObj<Router>;
+  let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const userServiceSpy = jasmine.createSpyObj('UserService', ['setCurrentUser']);
 
     await TestBed.configureTestingModule({
       declarations: [LoginPageComponent],
-      imports: [RouterTestingModule],
-      providers: [{ provide: Router, useValue: routerSpy }],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [
+        { provide: Router, useValue: routerSpy },
+        { provide: UserService, useValue: userServiceSpy },
+      ],
     }).compileComponents();
   });
 
@@ -30,6 +37,8 @@ describe('LoginPageComponent', () => {
     spyOn(localStorage, 'setItem').and.callFake((key: string, value: string): string => {
       return (store[key] = <string>value);
     });
+    userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+    userService.setCurrentUser.and.returnValue();
     fixture.detectChanges();
   });
 
@@ -37,9 +46,15 @@ describe('LoginPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    localStorage.setItem('currentUser', JSON.stringify(new User()));
+  it('should check if user is already logged in', () => {
+    const user = new User();
+    user.authorizationToken = 'teste';
+    user.refreshToken = 'teste';
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    localStorage.setItem('authorization', user.authorizationToken);
+    localStorage.setItem('refresh-token', user.refreshToken);
     router.navigate = jasmine.createSpy().and.resolveTo({});
+    userService.setCurrentUser.and.returnValue();
     component.ngOnInit();
     expect(component).toBeTruthy();
   });
