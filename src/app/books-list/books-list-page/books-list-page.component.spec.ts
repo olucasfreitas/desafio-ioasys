@@ -42,13 +42,6 @@ describe('BooksListPageComponent', () => {
     booksService = TestBed.inject(BooksService) as jasmine.SpyObj<BooksService>;
     booksService.getBooks.and.returnValue(of(new BooksResponse()));
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    const store: any = {};
-    spyOn(localStorage, 'getItem').and.callFake((key: string): string => {
-      return store[key] || null;
-    });
-    spyOn(localStorage, 'setItem').and.callFake((key: string, value: string): string => {
-      return (store[key] = <string>value);
-    });
     fixture.detectChanges();
   });
 
@@ -57,34 +50,35 @@ describe('BooksListPageComponent', () => {
   });
 
   it('should get user and load books', () => {
-    localStorage.setItem('currentUser', JSON.stringify(new User()));
-    userService.getCurrentUser.and.returnValue(of(new User()));
+    const user = new User();
+    user.id = 'teste';
+    userService.getCurrentUser.and.returnValue(of(user));
     component.ngOnInit();
     booksService.getBooks(1, 1, 'biographies', 'token').subscribe((books) => {
       expect(component.bookList).toEqual(books.data);
       expect(component.lastPage).toBeCloseTo(books.totalPages);
     });
-    expect(component.user).toEqual(new User());
+    expect(component.user).toEqual(user);
   });
 
   it('should go to next page', () => {
+    const booksResponse = new BooksResponse();
     component.lastPage = 4;
-    component.page = 3;
+    component.page = 2;
     component.goToNextPage();
-    booksService.getBooks(1, 1, 'biographies', 'token').subscribe((books) => {
-      expect(component.bookList).toEqual(books.data);
-      expect(component.page).toEqual(books.page);
-    });
+    booksService.getBooks.and.returnValue(of(booksResponse));
+    expect(component.bookList).toEqual(booksResponse.data);
+    expect(component.page).toEqual(booksResponse.page);
   });
 
   it('should come back to previous page', () => {
+    const booksResponse = new BooksResponse();
     component.lastPage = 4;
     component.page = 3;
     component.goToPreviousPage();
-    booksService.getBooks(1, 1, 'biographies', 'token').subscribe((books) => {
-      expect(component.bookList).toEqual(books.data);
-      expect(component.page).toEqual(books.page);
-    });
+    booksService.getBooks.and.returnValue(of(booksResponse));
+    expect(component.bookList).toEqual(booksResponse.data);
+    expect(component.page).toEqual(booksResponse.page);
   });
 
   it('should sign user out', () => {
