@@ -31,8 +31,8 @@ export class FormComponent {
           email: data.body.email,
           birthDate: data.body.birthDate,
           gender: data.body.gender,
-          authorizationToken: authToken,
-          refreshToken: refreshToken,
+          authorizationToken: authToken as string,
+          refreshToken: refreshToken as string,
         };
 
         this.userService.setCurrentUser(user);
