@@ -28,26 +28,23 @@ export class BooksListPageComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private booksService: BooksService) {}
 
   ngOnInit(): void {
-    const localUser = localStorage.getItem('currentUser');
-    if (localUser) {
-      this.userService.getCurrentUser().subscribe((value) => {
+    this.userService.getCurrentUser().subscribe((value) => {
+      if (value.id == '') {
+        this.router.navigate(['/login']);
+      } else {
         this.user = value;
-      });
-      this.booksService
-        .getBooks(this.page, this.amount, this.category, this.user.authorizationToken)
-        .subscribe((books) => {
-          this.bookList = books.data;
-          this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
-        });
-    } else {
-      this.router.navigate(['/login']);
-    }
+        this.booksService
+          .getBooks(this.page, this.amount, this.category, this.user.authorizationToken)
+          .subscribe((books) => {
+            this.bookList = books.data;
+            this.lastPage = Math.ceil(books.totalPages * Math.pow(10, 0)) / Math.pow(10, 0);
+          });
+      }
+    });
   }
 
   goToNextPage(): void {
-    if (this.page + 1 > this.lastPage) {
-      return;
-    } else {
+    if (this.page + 1 < this.lastPage) {
       this.booksService
         .getBooks(this.page + 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
@@ -59,9 +56,7 @@ export class BooksListPageComponent implements OnInit {
   }
 
   goToPreviousPage(): void {
-    if (this.page - 1 == 0) {
-      return;
-    } else {
+    if (this.page - 1 !== 0) {
       this.booksService
         .getBooks(this.page - 1, this.amount, this.category, this.user.authorizationToken)
         .subscribe((books) => {
