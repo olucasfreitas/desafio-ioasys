@@ -17,9 +17,8 @@ export class BookCardComponent {
   openModal(): void {
     this.dialog.open(BookDetailsModalComponent, {
       height: '75%',
-      width: '70%',
+      width: '75%',
       disableClose: true,
-      panelClass: 'my-outlined-dialog',
       data: {
         bookId: this.book.id,
         authToken: this.authToken,
